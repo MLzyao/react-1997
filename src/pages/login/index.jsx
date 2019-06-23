@@ -1,6 +1,6 @@
-/*
-用户登陆的路由组件
- */
+
+// 用户登陆的路由组件
+
 import React, {Component} from 'react'
 import { Form ,Icon , Input ,Button } from 'antd'
 import { reqLogin } from '../../api'
@@ -11,13 +11,19 @@ import './index.less';
 const Item=Form.Item;
 
  class Login extends Component {
+
+
  login= (e) =>{
    e.preventDefault();
    this.props.form.validateFields(async (error,values) =>{
+     console.log("------");
      if(!error){
        const { username , password} = values;
+       console.log(username , password);
        const result = await  reqLogin(username,password);
+       console.log(result);
        if(result){
+
          this.props.history.replace('/');
        }else{
          this.props.form.resetFields(['password']);
@@ -33,7 +39,7 @@ const Item=Form.Item;
    validator =(rule, value, callback) => {
      const name= rule.fillField ==="username"? "用户名":"密码";
      if( !value ){
-       callback(`必须输入$(username)!`)
+       callback(`必须输入${name}!`)
      }else if(value.length <4){
        callback(`${name} 必须大4位`)
      }else if(value.length>15){
@@ -61,10 +67,6 @@ const Item=Form.Item;
                 'username',
                 {
                   rules: [
-                    /*{required: true, message: '请输入用户名！'},
-                    {min: 4, message: '用户名必须大于4位'},
-                    {max: 15, message: '用户名必须小于15位'},
-                    {pattern: /^[a-zA-Z_0-9]+$/, message: '用户名只能包含英文字母、数字和下划线'}*/
                     {
                       validator: this.validator
                     }
