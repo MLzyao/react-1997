@@ -51,7 +51,7 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/header-main/index.jsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-675">
+            <state relative-caret-position="-611">
               <caret line="11" column="25" lean-forward="true" selection-start-line="11" selection-start-column="25" selection-end-line="11" selection-end-column="25" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
@@ -152,7 +152,7 @@
     <other-services-enabled>true</other-services-enabled>
     <auto-save>true</auto-save>
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
+  <component name="ProjectFrameBounds">
     <option name="x" value="473" />
     <option name="width" value="1198" />
     <option name="height" value="1038" />
@@ -287,15 +287,15 @@
       <updated>1561170509210</updated>
       <workItem from="1561170510686" duration="2635000" />
       <workItem from="1561178333484" duration="12217000" />
-      <workItem from="1561216340209" duration="48197000" />
+      <workItem from="1561216340209" duration="48746000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="63049000" />
+    <option name="totallyTimeSpent" value="63598000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="528" y="0" width="958" height="830" extended-state="0" />
+    <frame x="379" y="0" width="958" height="830" extended-state="0" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20281996" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -312,7 +312,7 @@
       <window_info anchor="bottom" id="TODO" order="7" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="9" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.3381089" />
+      <window_info anchor="bottom" id="Terminal" order="10" weight="0.3381089" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" weight="0.32956153" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -516,7 +516,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/header-main/index.jsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-675">
+        <state relative-caret-position="-611">
           <caret line="11" column="25" lean-forward="true" selection-start-line="11" selection-start-column="25" selection-end-line="11" selection-end-column="25" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
