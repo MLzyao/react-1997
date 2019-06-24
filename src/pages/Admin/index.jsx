@@ -1,29 +1,39 @@
 /*
 后台管理主路由组件
  */
+
 import React, { Component } from 'react';
 import { Layout } from 'antd';
-
 import LeftNav from '../../components/left--nav';
 import HeaderMain from '../../components/header-main';
 
-const { Header, Content, Footer, Sider } = Layout;
+import { getItem } from '../../utils/storage-tools';
+import { reqValidateUserInfo } from '../../api';
 
+
+const { Header, Content, Footer, Sider } = Layout;
 export default class Admin extends Component {
   state = {
     collapsed: false,
   };
-
   onCollapse = collapsed => {
     console.log(collapsed);
     this.setState({ collapsed });
   };
+    async  componentWillMount() {
+    // 先判断用户输入是否输入成功，有就进入网页
+    const user = getItem();
+    if(user&& user._id){
+      // 如果用户是登录进来的，就不需要再次刷新
+      const result = await  reqValidateUserInfo(user._id)
+      if( result )  return ;
+    }
+       this.props.history.replace('/login')
+  }
 
   render() {
     const { collapsed } = this.state;
-
     return (
-
       <Layout style={{ minHeight: '100vh' }}>
         <Sider collapsible collapsed={collapsed} onCollapse={this.onCollapse}>
           <LeftNav collapsed={collapsed}/>

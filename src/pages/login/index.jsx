@@ -1,58 +1,59 @@
-
 // 用户登陆的路由组件
-
-import React, {Component} from 'react'
+import React  from 'react'
 import { Form ,Icon , Input ,Button } from 'antd'
-import { reqLogin } from '../../api'
- import logo from './logo.png';
+import { reqLogin } from '../../api';
+import { setItem }from '../../utils/storage-tools'
+
+import logo from './logo.png';
+
 import './index.less';
-
-
 const Item=Form.Item;
 
- class Login extends Component {
 
+function  Login(props) {
 
- login= (e) =>{
-   e.preventDefault();
-   this.props.form.validateFields(async (error,values) =>{
-     console.log("------");
-     if(!error){
-       const { username , password} = values;
-       console.log(username , password);
-       const result = await  reqLogin(username,password);
-       console.log(result);
-       if(result){
+  const login  = (e) => {
+    e.preventDefault();
+    props.form.validateFields(async (error, values) => {
+      if (!error) {
+        const {username, password} = values;
+        // console.log(username, password);
+        const result = await reqLogin(username, password);
+        console.log(result);
+        if (result) {
+          // 登陆成功，保存信息
+          setItem(result);
+          props.history.replace('/')
+          // this.props.history.replace('/');
 
-         this.props.history.replace('/');
-       }else{
-         this.props.form.resetFields(['password']);
+        } else {
+          // 清理密码
+          // this.props.form.resetFields(['password']);
+          props.form.resetFields(['password'])
+        }
+      } else {
+        console.log('登录表单失败:', error);
+      }
+    })
+    // * 自定义校验规则函数
+  };
+  const validator = (rule, value, callback) => {
 
-       }
-     }else{
-       console.log('登录表单失败:', error);
-     }
-   })
-   // * 自定义校验规则函数
+    const name = rule.fillField === "username" ? "用户名" : "密码";
+    if (!value) {
+      callback(`必须输入${name}!`)
+    } else if (value.length < 4) {
+      callback(`${name} 必须大4位`)
+    } else if (value.length > 15) {
+      callback(`${name} 必须小与15位`)
+    } else if (!/^[a-zA-Z_0-9]+$/.test(value)) {
+      callback(`${name}只能包含英文字母，数字`)
+    } else {
+    }
+    callback()
+  }
 
- }
-   validator =(rule, value, callback) => {
-     const name= rule.fillField ==="username"? "用户名":"密码";
-     if( !value ){
-       callback(`必须输入${name}!`)
-     }else if(value.length <4){
-       callback(`${name} 必须大4位`)
-     }else if(value.length>15){
-       callback(`${name} 必须小与15位`)
-     }else if(!/^[a-zA-Z_0-9]+$/.test(value)){
-       callback(`${name}只能包含英文字母，数字`)
-     }else{}
-     callback()
-   }
-  render () {
-
-    const  { getFieldDecorator } = this.props.form;
-
+    const  { getFieldDecorator } = props.form;
     return <div className="login">
       <header className="login-header">
         <img src={logo} alt="logo"/>
@@ -60,7 +61,7 @@ const Item=Form.Item;
       </header>
       <section className="login-content">
         <h2>用户登录</h2>
-        <Form onSubmit={this.login} className="login-form">
+        <Form onSubmit={login} className="login-form">
           <Item>
             {
               getFieldDecorator(
@@ -68,7 +69,7 @@ const Item=Form.Item;
                 {
                   rules: [
                     {
-                      validator: this.validator
+                      validator: validator
                     }
                   ]
                 }
@@ -84,7 +85,7 @@ const Item=Form.Item;
                 {
                   rules: [
                     {
-                      validator: this.validator,
+                      validator: validator,
                     }
                   ]
                 }
@@ -98,7 +99,7 @@ const Item=Form.Item;
           </Item>
         </Form>
       </section>
-    </div>;
+    </div>
   }
-}
+
 export default  Form.create()(Login);
