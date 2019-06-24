@@ -3,9 +3,9 @@ import MyButton from '../my-button';
 import { withRouter } from 'react-router-dom';
 
 import { Modal } from 'antd';
-
-import { removeItem } from '../../utils/storage-tools'
-import { reqWeather } from '../../api';
+import dayjs from 'dayjs';
+import { getItem ,removeItem } from '../../utils/storage-tools'
+import { reqWeather } from '../../api/index';
 import './index.less';
 class HeaderMain extends Component {
   state = {
@@ -13,9 +13,29 @@ class HeaderMain extends Component {
     weather :"晴",
     weatherImg: 'http://api.map.baidu.com/images/weather/day/qing.png'
 }
+// 还没渲染就要加载
+componentWillMount() {
+    this.username = getItem().username;
+    // this.title = this.getTitle( this.props )
+}
+  async  componentDidMount() {
+    setInterval(() => {
+      this.setState({
+        sysTime: Date.now()
+      })
+    }, 1000)
 
+    // 发送请求，请求天气
+    const result = await reqWeather('深圳');
+    if (result) {
+      this.setState(result);
+    }
+  }
+// componentWillReceiveProps(nextProps, nextContext) {
+//     this.title = this.getTitle(nextProps)
+// }
 
-    // 退出按钮
+  // 退出按钮
   logout =() =>{
    Modal.confirm({
       title: 'Do you want to delete these items?',
@@ -36,18 +56,18 @@ class HeaderMain extends Component {
 
     return <div>
     <div className='header-main-top'>
-      <span>欢迎，admin</span>
+      <span>欢迎，{this.username}</span>
 
       <MyButton onClick={this.logout}>退出</MyButton>
     </div>
 
     <div className='header-main-bottom'>
 
-      <span className='header-main-left'>用户管理</span>
+      <span className='header-main-left'>{this.title}</span>
 
       <div className='header-main-right'>
 
-        <span>{Date.now()}</span>
+        <span>{dayjs(sysTime).format('YYYY-MM-DD HH:mm:ss') }</span>
 
         <img src={weatherImg} alt='weatherImg'/>
 
