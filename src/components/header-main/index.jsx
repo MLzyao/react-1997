@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import MyButton from '../my-button';
 import { withRouter } from 'react-router-dom';
-
+import menuList from '../../config/menu-config'
 import { Modal } from 'antd';
 import dayjs from 'dayjs';
 import { getItem ,removeItem } from '../../utils/storage-tools'
@@ -16,7 +16,8 @@ class HeaderMain extends Component {
 // 还没渲染就要加载
 componentWillMount() {
     this.username = getItem().username;
-    // this.title = this.getTitle( this.props )
+    // 因为是上一次的数据，所以this.props
+    this.title = this.getTitle( this.props )
 }
   async  componentDidMount() {
     setInterval(() => {
@@ -31,9 +32,9 @@ componentWillMount() {
       this.setState(result);
     }
   }
-// componentWillReceiveProps(nextProps, nextContext) {
-//     this.title = this.getTitle(nextProps)
-// }
+componentWillReceiveProps(nextProps, nextContext) {
+    this.title = this.getTitle(nextProps)
+}
 
   // 退出按钮
   logout =() =>{
@@ -47,9 +48,38 @@ componentWillMount() {
         // 退出登录
         this.props.history.replace('/login');
       },
-
     });
   }
+
+
+// 菜单跟随左边菜单title跟换
+ getTitle =( nextProps)=>{
+    console.log("getTitle()");
+    const { pathname} =nextProps.location;
+    // 遍历
+   for(let i=0;i<menuList.length;i++){
+     const menu= menuList[i];
+     if( menu.children) {
+       for (let j=0;j< menu.children.length; j++) {
+         const item = menu.children[j];
+         if (item.key === pathname) {
+           // 二级菜单等于一级菜单
+           return item.title;
+         }
+       }
+         }else{
+           if( menu.key ===pathname){
+             return menu.title;
+           }
+
+         }
+       }
+     }
+
+
+
+
+
 
   render() {
      const { sysTime , weather , weatherImg} =this.state;

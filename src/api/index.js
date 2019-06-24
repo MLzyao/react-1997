@@ -21,3 +21,5 @@ export const reqValidateUserInfo = (id) => ajax('/validate/user',{id}, 'POST')
   })
  })
  }
+
+ export const reqCategories = (parentId)=>ajax('/manage/category/list',{parentId})
