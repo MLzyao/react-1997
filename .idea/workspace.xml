@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bf5a239a-82c2-4d7f-8658-9aa7794d03eb" name="默认更改列表" comment="">
-      <change afterPath="$PROJECT_DIR$/src/pages/category/add-ccategory-from.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/header-main/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/header-main/index.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/left--nav/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/left--nav/index.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Admin/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Admin/index.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/category/index.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/category/index.jsx" afterDir="false" />
-    </list>
+    <list default="true" id="bf5a239a-82c2-4d7f-8658-9aa7794d03eb" name="默认更改列表" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -66,7 +58,7 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/left--nav/index.jsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="329">
+            <state relative-caret-position="77">
               <caret line="72" column="3" lean-forward="true" selection-start-line="72" selection-start-column="3" selection-end-line="72" selection-end-column="3" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
@@ -161,7 +153,7 @@
     <other-services-enabled>true</other-services-enabled>
     <auto-save>true</auto-save>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="1">
     <option name="x" value="690" />
     <option name="y" value="27" />
     <option name="width" value="1145" />
@@ -299,12 +291,12 @@
       <workItem from="1561178333484" duration="12217000" />
       <workItem from="1561216340209" duration="61238000" />
       <workItem from="1561390633931" duration="21059000" />
-      <workItem from="1561450008883" duration="6024000" />
+      <workItem from="1561450008883" duration="6430000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="103173000" />
+    <option name="totallyTimeSpent" value="103579000" />
   </component>
   <component name="TodoView" selected-index="2">
     <todo-panel id="selected-file">
@@ -316,10 +308,9 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="596" y="82" width="916" height="798" extended-state="0" />
-    <editor active="true" />
+    <frame x="552" y="22" width="916" height="798" extended-state="1" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49624062" visible="true" weight="0.19090909" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49624062" visible="true" weight="0.19090909" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" sideWeight="0.5037594" side_tool="true" weight="0.22851747" />
       <window_info id="npm" order="3" side_tool="true" />
@@ -332,7 +323,7 @@
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" />
-      <window_info anchor="bottom" id="Terminal" order="9" weight="0.5708215" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="9" visible="true" weight="0.5705706" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" weight="0.32956153" />
       <window_info anchor="bottom" id="TypeScript" order="11" />
       <window_info anchor="bottom" id="TODO" order="12" weight="0.25070822" />
@@ -620,7 +611,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/left--nav/index.jsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="329">
+        <state relative-caret-position="77">
           <caret line="72" column="3" lean-forward="true" selection-start-line="72" selection-start-column="3" selection-end-line="72" selection-end-column="3" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
