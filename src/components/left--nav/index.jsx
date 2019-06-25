@@ -21,7 +21,7 @@ class LeftNav extends Component {
       </Link>
     </Item>
   }
-
+  // ajax发了请求,这里接收
   componentWillMount() {
     // admin左侧栏 默认选中home
     let isHome = true;
@@ -53,6 +53,7 @@ class LeftNav extends Component {
         return this.createMenu(menu)
       }
     });
+     // 默认值选中home
    this.selecteKey= isHome? '/home' : pathname;
   }
 

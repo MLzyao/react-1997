@@ -1,3 +1,6 @@
+
+// 所有接口
+
 import  ajax from './ajax';
 import jsonp from 'jsonp';
 import { message} from 'antd'

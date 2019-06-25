@@ -10,17 +10,17 @@ export default class Category extends Component {
     categories: [],//一级分类列表
     isShowAddCategory:false,//显示添加的品类
   }
-
+    // 定义接口,DidMount发请求,发了请求更新状态,用户信息就发生变化
   async componentDidMount(){
     const result = await  reqCategories("0");
     if (result) {
+      // categories分类的意思
       this.setState({categories:result})
     }
   }
-      /*
-      显示添加品类
-      h
-       */
+  /*
+  显示添加品类
+  */
   ShowAddCategory = () =>{
     this.setState({
       isShowAddCategory:true,
@@ -31,35 +31,50 @@ export default class Category extends Component {
     this.setState({
       isShowAddCategory:false
     })
-  }
-
+  };
   // 添加品类
   addCategory =() =>{
-    this.addCategoryFrom.props.form.validateFields(async (err,values)=>{
+    const { form } = this.addCategoryFrom.props;
+    form.validateFields(async (err,values)=>{
       if(!err){
         // 如果效验通过
         console.log(values);
         const { parentId,categoryName} = values;
-      const result = await reqAddCategory(parentId,categoryName)
+      const result = await reqAddCategory(parentId,categoryName);
         if(result){
-          message.success("添加分类成功",2)
-          this.setState({
-            isShowAddCategory:false
-          })
+          // 添加成功
+          message.success("添加分类成功",2);
+          // 清空表单数据
+          form.resetFields(['parentId','categoryName']);
+          /*
+                   如果是一级分类：就在一级分类列表中展示
+                   如果是二级分类：就在二级分类中展示，而一级分类是不需要的
+                  */
+          // 初始化
+          const options = {
+          //显示添加的品类
+         iShowAddCategory: false
+          }
+          // parentId ==='0'等于一级菜单
+          // categories 类别的意思
+          if( result.parentId ==='0'){
+            // 只有一级才能进来
+           options.categories = [...this.state.categories,result]
+          }
+          // 统一更新
+          this.setState( options );
         }
       }
     })
   }
 
-
   render() {
     const  { categories , isShowAddCategory} = this.state;
-    // 表头内容n
+    // 表头内容
     const columns = [
       {
         title: '品类名称',
         dataIndex: 'name',
-
       },
       {
         title: '操作 ',
@@ -67,6 +82,7 @@ export default class Category extends Component {
         className: "category-operation",
         // 表单内容
         render: text => {
+          console.log(text)
           return <div>
             <MyButton>修改</MyButton>
             <MyButton>种类</MyButton>
@@ -88,7 +104,7 @@ export default class Category extends Component {
         showQuickJumper:true,
         pageSizeOptions:['3','6','9']
     }}
-      rowKey="_id"
+
       />,
       <Modal
         title="添加分类"
