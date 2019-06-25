@@ -16,11 +16,11 @@ export default class Category extends Component {
   }
 
   render() {
-    // 表头内容
+    // 表头内容n
     const columns = [
       {
         title: '品类名称',
-        dataIndex: 'categoryName',
+        dataIndex: 'name',
 
       },
       {
@@ -36,32 +36,7 @@ export default class Category extends Component {
         }
       },
     ];
-    const data = [
-      {
-        key: '1',
-        categoryName: '充电宝',
-        operation: '￥300',
-      },
-      {
-        key: '2',
-        categoryName: ' 手机',
-        operation: '￥125',
-      },
-      {
-        key: '3',
-        categoryName: '家具',
-        operation: '￥120',
-      },
-      {
-        key: '4',
-        categoryName: '电脑 ',
-        operation: '￥125',
-      }, {
-        key: '5',
-        categoryName: ' 冰箱',
-        operation: '￥125',
-      },
-    ];
+
 
     return <Card title="一级分类列表" extra={<Button type="primary"><Icon type="github"/>添加品类</Button>}>
       <Table
@@ -74,6 +49,7 @@ export default class Category extends Component {
       showQuickJumper: true,
       defaultPageSize: 3
     }}
+      rowKey="_id"
       />,
     </Card>
   }
