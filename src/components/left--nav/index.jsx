@@ -7,10 +7,12 @@ import menuList from '../../config/menu-config';
 import './index.less';
 import  logo from '../../assets/image/logo.png'
 const { SubMenu , Item} =Menu;
+
 class LeftNav extends Component {
   static  propTypes= {
     collapsed:PropTypes.bool.isRequired
   }
+
   createMenu = (menu) =>{
     return <Item key={menu.key}>
       <Link to ={menu.key}>
@@ -19,10 +21,14 @@ class LeftNav extends Component {
       </Link>
     </Item>
   }
+
   componentWillMount() {
+    // admin左侧栏 默认选中home
+    let isHome = true;
     const { pathname }= this.props.location;
-    this.menus = menuList.map((menu)=>{
+     this.menus = menuList.map((menu)=>{
       const children = menu.children;
+
       if( children ){
         return <SubMenu key={menu.key}
         title ={
@@ -43,10 +49,11 @@ class LeftNav extends Component {
           }
         </SubMenu>
       }else{
+        if ( menu.key === pathname) isHome = false;
         return this.createMenu(menu)
       }
     });
-   this.selecteKey= pathname;
+   this.selecteKey= isHome? '/home' : pathname;
   }
 
 

@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import MyButton from '../my-button';
 import { withRouter } from 'react-router-dom';
-import menuList from '../../config/menu-config'
 import { Modal } from 'antd';
 import dayjs from 'dayjs';
 import { getItem ,removeItem } from '../../utils/storage-tools'
-import { reqWeather } from '../../api/index';
+import { reqWeather } from '../../api';
 import './index.less';
+import menuList from '../../config/menu-config'
+
 class HeaderMain extends Component {
   state = {
     sysTime : Date.now(),
@@ -20,20 +21,28 @@ componentWillMount() {
     this.title = this.getTitle( this.props )
 }
   async  componentDidMount() {
-    setInterval(() => {
+    this.timeId = setInterval(() => {
       this.setState({
         sysTime: Date.now()
       })
     }, 1000)
 
     // 发送请求，请求天气
-    const result = await reqWeather('深圳');
+      const { promise , cancel } = reqWeather();
+       this.cancel = cancel;
+        const result = await promise;
+
     if (result) {
       this.setState(result);
     }
   }
 componentWillReceiveProps(nextProps, nextContext) {
     this.title = this.getTitle(nextProps)
+}
+componentWillUnmount() {
+    clearInterval(this.timeId);
+  // 取消ajax请求
+    this.cancel();
 }
 
   // 退出按钮
@@ -50,7 +59,6 @@ componentWillReceiveProps(nextProps, nextContext) {
       },
     });
   }
-
 
 // 菜单跟随左边菜单title跟换
  getTitle =( nextProps)=>{
@@ -75,10 +83,6 @@ componentWillReceiveProps(nextProps, nextContext) {
          }
        }
      }
-
-
-
-
 
 
   render() {

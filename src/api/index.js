@@ -6,9 +6,10 @@ export const reqValidateUserInfo = (id) => ajax('/validate/user',{id}, 'POST')
 // 请求天气
 
 // 因为异步 所以必须用promise 包装函数就是一上来调用
- export  const reqWeather = function (name){
-  return new Promise((resolve,reject)=>{
-    jsonp(`http://api.map.baidu.com/telematics/v3/weather?location=深圳&output=json&ak=3p49MVra6urFRGOT9s8UBWr2`, {}, function (err, data) {
+ export  const reqWeather = function (){
+  let cancel = null;
+  const promise =  new Promise((resolve,reject)=>{
+   cancel =  jsonp(`http://api.map.baidu.com/telematics/v3/weather?location=深圳&output=json&ak=3p49MVra6urFRGOT9s8UBWr2`, {}, function (err, data) {
       if(!err){
         const { dayPictureUrl, weather} = data.results[0].weather_data[0];
         resolve({
@@ -20,6 +21,11 @@ export const reqValidateUserInfo = (id) => ajax('/validate/user',{id}, 'POST')
       }
   })
  })
+   return {
+    promise,
+     cancel
+   }
  }
 
- export const reqCategories = (parentId)=>ajax('/manage/category/list',{parentId})
+export const reqCategories = (parentId)=>ajax('/manage/category/list',{parentId})
+export const reqAddCategory = (parentId,categoryName)=>ajax('manage/category/add',{parentId,categoryName},"POST")
