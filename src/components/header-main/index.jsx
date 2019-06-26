@@ -62,8 +62,15 @@ componentWillUnmount() {
 
 // 菜单跟随左边菜单title跟换
  getTitle =( nextProps)=>{
-    console.log("getTitle()");
-    const { pathname} =nextProps.location;
+      // 功能:显示品类管理,商品管理
+    let { pathname } = nextProps.location;
+    // console.log("getTitle()");
+    const  pathnameReg  =/^\/product\//;
+
+    if( pathnameReg.test(pathname)){
+      pathname = pathname.slice(0,8);
+    }
+
     // 遍历
    for(let i=0;i<menuList.length;i++){
      const menu= menuList[i];

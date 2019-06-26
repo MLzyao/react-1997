@@ -23,9 +23,16 @@ class LeftNav extends Component {
   }
   // ajax发了请求,这里接收
   componentWillMount() {
+    // 功能:显示品类管理,商品管理
+      let { pathname} = this.props.location;
+      const pathnameReg = /^\/w+\//;
+      if( pathnameReg.test(pathname)){
+        pathname = pathname.slice(0,8)
+      }
+
+
     // admin左侧栏 默认选中home
     let isHome = true;
-    const { pathname }= this.props.location;
      this.menus = menuList.map((menu)=>{
       const children = menu.children;
 
