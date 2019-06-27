@@ -23,9 +23,14 @@ class LeftNav extends Component {
   }
   // ajax发了请求,这里接收
   componentWillMount() {
-    // 功能:显示品类管理,商品管理
+
+    /**
+     *   功能:显示品类管理,商品管理
+     */
       let { pathname} = this.props.location;
+      // 正则判断
       const pathnameReg = /^\/w+\//;
+    // pathnameReg.test的test 是正则表达式的api,
       if( pathnameReg.test(pathname)){
         pathname = pathname.slice(0,8)
       }

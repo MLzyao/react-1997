@@ -30,7 +30,10 @@ export const reqValidateUserInfo = (id) => ajax('/validate/user',{id}, 'POST')
    }
  }
 export const reqCategories = (parentId)=>ajax('/manage/category/list',{parentId})
-export const reqAddCategory = (parentId ,categoryName)=>ajax('manage/category/add',{parentId,categoryName},"POST")
-export  const reqUpdateCategoryName =(categoryId,categoryName) =>ajax ("/manage/category/update",{categoryId,categoryName },"POST")
-export const reqProducts =(pageNum,pageSize )=>ajax("manage/product/list",{pageNum,pageSize} )
+export const reqAddCategory = (parentId ,categoryName)=>ajax('/manage/category/add',{parentId,categoryName},"POST")
+export const reqUpdateCategoryName =(categoryId,categoryName) =>ajax ("/manage/category/update",{categoryId,categoryName },"POST")
+export const reqProducts =(pageNum,pageSize )=>ajax("/manage/product/list",{pageNum,pageSize} )
 
+export const reqAddProduct = ({name, desc, price, categoryId, pCategoryId, detail}) => ajax('/manage/product/add', {name, desc, price, categoryId, pCategoryId, detail}, 'POST');
+export const reqUpdateProduct = ({name, desc, price, categoryId, pCategoryId, detail, _id}) => ajax('/manage/product/update', {name, desc, price, categoryId, pCategoryId, detail, _id}, 'POST');
+export const reqDeleteProductImg = (name, id) => ajax('/manage/img/delete', {name, id}, 'POST');

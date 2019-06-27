@@ -332,18 +332,18 @@ export default class Category extends Component {
   };
 
   /**
-   * 添加品类
+   * 添加分类请求功能
    */
   addCategory = () => {
     // 1. 表单校验
     // 2. 收集表单数据
-    // console.log(this.addCategoryForm);
+
     const { form } = this.addCategoryForm.props;
 
     form.validateFields(async (err, values) => {
       if (!err) {
         // 校验通过
-        console.log(values);
+        // console.log(values);
         const { parentId, categoryName } = values;
         // 3. 发送请求
         const result = await reqAddCategory(parentId, categoryName);
@@ -405,14 +405,13 @@ export default class Category extends Component {
 
   /**
    * 临时保存要修改的分类数据
-   * @param category
-   * @returns {Function}
+
    */
   saveCategory = (category) => {
     return () => {
       // 保存要更新的分类数据
       this.category = category;
-      // console.log(this);
+
       this.setState({
         isShowUpdateCategoryName: true
       })
