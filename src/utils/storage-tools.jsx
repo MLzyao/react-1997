@@ -1,6 +1,7 @@
 const USER_KEY = "USER_KEY";
 const USER_TIME =  "USER_TIME";
 const EXPIRES_IN = 1000*3600*24*3;
+
   export const getItem = function (){
   const startTime = localStorage.getItem(USER_TIME);
   if(Date.now()- startTime> EXPIRES_IN) {

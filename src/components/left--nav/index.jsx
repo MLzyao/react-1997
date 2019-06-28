@@ -53,8 +53,8 @@ class LeftNav extends Component {
           {
             children.map((item)=>{
               if(item.key === pathname){
+                isHome = false;
                 this.openKey = menu.key;
-
               }
               return this.createMenu(item);
             })

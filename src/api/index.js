@@ -37,3 +37,8 @@ export const reqProducts =(pageNum,pageSize )=>ajax("/manage/product/list",{page
 export const reqAddProduct = ({name, desc, price, categoryId, pCategoryId, detail}) => ajax('/manage/product/add', {name, desc, price, categoryId, pCategoryId, detail}, 'POST');
 export const reqUpdateProduct = ({name, desc, price, categoryId, pCategoryId, detail, _id}) => ajax('/manage/product/update', {name, desc, price, categoryId, pCategoryId, detail, _id}, 'POST');
 export const reqDeleteProductImg = (name, id) => ajax('/manage/img/delete', {name, id}, 'POST');
+
+export const reqSearchProduct = ({searchType, searchContent, pageSize, pageNum}) => ajax('/manage/product/search',{[searchType]: searchContent, pageSize, pageNum});
+export const reqGetRoles=()=>ajax('/manage/role/list');
+export const reqAddRole=(name)=>ajax('/manage/role/add',{name},'POST');
+export const reqUpdateRole =(_id,auth_name,menus)=> ajax ('/manage/role/update',{_id,auth_name,menus},"POST")

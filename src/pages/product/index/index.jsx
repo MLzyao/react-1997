@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Card,Input,Select,Icon,Button ,Table,} from 'antd';
+import { Card,Input,Select,Icon,Button ,Table,message } from 'antd';
 import MyButton from '../../../components/my-button';
-import { reqProducts } from '../../../api'
-
+import { reqProducts,reqSearchProduct } from '../../../api'
 import './index.less';
 
 const { Option } =Select;
@@ -11,39 +10,98 @@ export default class Index extends Component {
     products:[],
     total: 0,
     loading:true,
-  }
+    searchType :"productName",
+    searchContent:"",
+    pageSize:3,
+    pageNum:1
+  };
 
  componentDidMount() {
   this.getProducts(1,3)
   }
 
-  getProducts =async (pageNum,pageSize) =>{
+  getProducts = async (pageNum,pageSize) =>{
     this.setState({
       loading:true
-    })
+    });
     // 代表请求的第一页 3条数据
-    const result = await  reqProducts(pageNum,pageSize);
-    console.log(result);
-    if(result) {
-      this.setState({
-        // products在页面展示
-        products:result.list,
-        total: result.total,
-        loading:false
+    const { searchContent,searchType } = this.state;
+
+    let promise =null;
+    // 如果input有值，则请求会里面的页数 ，行，内容
+    if (this.isSearch && searchContent ) {
+      promise = reqSearchProduct({
+        searchType, searchContent, pageSize, pageNum
       })
-    }
-  }
+      // 没有则显示行和页数
+    } else {
+         promise = reqProducts(pageNum,pageSize)
+      }
+      const result = await  promise;
+
+      if(result) {
+        this.setState({
+          // products在页面展示
+          products:result.list,
+          total: result.total,
+          loading:false,
+          pageNum,
+          pageSize
+        })
+      }
+  };
 
   // 点击跳转到add-update
   showAddProduct  = ()=>{
       this.props.history.push('/product/add-update')
-  }
-  showUpdateProduct = (product) =>{
-  return () =>{
-    this.props.history.push('/product/add-update')
-  }
-  }
+  };
 
+  showProduct = (path,product) =>{
+  return () =>{
+    // console.log(path);
+    this.props.history.push(path,product)
+
+  }
+  };
+
+  //stateName 要收集的东西
+    handleChange =(stateName)=>{
+      return (e)=>{
+        // 如果是所有状态，是默认就searchType(protuctName)，不是则显示关键字productContent
+       const value = stateName ==="searchType" ? e:e.target.value;
+        this.setState({ [stateName]:value })
+
+    }
+    };
+    // 搜索按钮
+  Search = async ()=> {
+    //收集表单数据
+    const { searchContent, pageSize, pageNum} = this.state;
+    //收集页数，行数
+
+    if (searchContent) {
+      this.setState({loading: true});
+
+      const {searchContent} = this.state;
+
+      if (searchContent) {
+        this.isSearch = true;
+        this.getProducts(pageNum, pageSize)
+        //   const result =await reqSearchProduct({searchType,searchContent,pageSize,pageNum});
+        // if( result ){
+        //   this.setState({
+        //     // products在页面展示
+        //     products:result.list,
+        //     total: result.total,
+        //     loading:false
+        //   })
+        // }
+
+      } else {
+        message.warn("请输入搜索内容", 2)
+      }
+    }
+  };
 
   render() {
     const { products,total, loading } = this.state;
@@ -76,29 +134,25 @@ export default class Index extends Component {
           title:"操作",
           className:"product-status",
           render:( product) =>{
-            console.log(product)
+            console.log(product);
 
             return <div>
-              <MyButton>详情</MyButton>
-              <MyButton onClick={ this.showUpdateProduct(product) }>修改</MyButton>
+              <MyButton onClick = { this.showProduct('/product/detail',product)}>详情</MyButton>
+              <MyButton onClick={ this.showProduct('/product/add-update',product) }>修改</MyButton>
 
             </div>
           }
         },
     ];
 
-
-
-
-
     return<Card title={
       <div>
-        <Select defaultValue={0} >
-          <Option value={0} key={0}>根据商品名称</Option>
-          <Option value={1} key={1}>根据产品名称</Option>
+        <Select defaultValue="productName" onChange = {this.handleChange("searchType")}>
+          <Option key ={0} value = "productName">根据商品名称</Option>
+          <Option key={1} value = "productDesc">根据产品名称</Option>
         </Select>
-        <Input placeholder="关键字" className="search-input" />
-        <Button type="primary">搜索</Button>
+        <Input placeholder="关键字" className="search-input" onChange = {this.handleChange("searchContent")}/>
+        <Button type="primary"  onClick={this.Search}>搜索</Button>
       </div>
     }
        extra = {<Button type="primary" onClick={this.showAddProduct}><Icon type="plus"/>添加产品</Button>}

@@ -1,6 +1,6 @@
 
 // 照片的功能
-import React, { Component } from 'react';
+import React from 'react';
 import { Upload, Icon, Modal,message } from 'antd';
 
 import{ reqDeleteProductImg}  from '../../../api'
@@ -17,15 +17,13 @@ import{ reqDeleteProductImg}  from '../../../api'
          url:`http://localhost:5000/upload/${img}`,
        }
      })
-
   };
-
   handleCancel = () => this.setState({ previewVisible: false });
 
   handlePreview = async file => {
 
     this.setState({
-      previewImage: file.url || file.preview,
+      previewImage: file.url || file.thumbUrl,
       previewVisible: true,
     });
   };
@@ -33,7 +31,13 @@ import{ reqDeleteProductImg}  from '../../../api'
   handleChange = async({ file,fileList }) => {
     if(file.status ==='uploading'){
       // 上传中
-    }else if(file.status==='done'){
+    }else if(file.status ==='done'){
+
+      // name为了删除而改
+      fileList[fileList.length - 1].name= file.response.data.name;
+
+      // url 为了显示而改
+      fileList[fileList.length -1].url = file.response.data.url;
       // 上传成功~
     }else if(file.status ==='error'){
       message.error('上传图片失败！', 2);
@@ -75,7 +79,7 @@ import{ reqDeleteProductImg}  from '../../../api'
             }}
           name="image"
         >
-          {fileList.length >= 5 ? null : uploadButton}
+          {fileList.length >= 3 ? null : uploadButton}
         </Upload>
 
 
